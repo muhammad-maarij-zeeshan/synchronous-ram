@@ -1,10 +1,16 @@
 module synchronous_ram_tb;
-  reg [1:0] addr;
+  parameter ADDR_SIZE = 2;
+  parameter DATA_SIZE = 8;
+ 
+  reg [ADDR_SIZE-1:0] addr;
   reg RD, WE, CS, clk, reset;
-  reg [7:0] dataIn;
-  wire [7:0] dataOut;
+  reg [DATA_SIZE-1:0] dataIn;
+  wire [DATA_SIZE-1:0] dataOut;
 
-  synchronous_ram dut (
+  synchronous_ram #(
+    .ADDR_SIZE(ADDR_SIZE),
+    .DATA_SIZE(DATA_SIZE)
+  )dut (
     .addr(addr),
     .RD(RD),
     .WE(WE),

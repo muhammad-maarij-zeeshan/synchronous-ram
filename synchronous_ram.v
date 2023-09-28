@@ -1,12 +1,15 @@
-module synchronous_ram (
-    input wire [1:0] addr,
+module synchronous_ram  #(
+    parameter ADDR_SIZE = 2,
+    parameter DATA_SIZE = 8
+  )(
+    input wire [ADDR_SIZE-1:0] addr,
     input wire RD,
     input wire WE,
     input wire CS,
     input wire clk,
     input wire reset,
-    input wire [7:0] dataIn,
-    output wire [7:0] dataOut
+    input wire [DATA_SIZE-1:0] dataIn,
+    output wire [DATA_SIZE-1:0] dataOut
   );
 
   integer i;
@@ -27,7 +30,7 @@ module synchronous_ram (
         mem[addr] <= dataIn;
     end
   end
-  
+
   assign dataOut = (RD && CS) ? mem[addr] : 8'b00000000;
 
 endmodule
